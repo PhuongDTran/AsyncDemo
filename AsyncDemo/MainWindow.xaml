@@ -5,28 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AsyncDemo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="200" Width="250">
+        Title="MainWindow" Height="300" Width="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!-- cell 1, upper left -->
+        <Label Content="Synchronous method,sleep for 10s"
+               Grid.Column="0"
+               Grid.Row="0"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top"/>
         <Button 
             Grid.Column="0"
             Grid.Row="0"
-            Content="Click me" 
+            Content="Button1" 
             Foreground="Blue" 
             BorderThickness="1" 
-            Width="50" 
+            Width="70" 
             Height="20" 
-            Click="Button_Clicked"/>
+            Click="Button1_Click"/>
+        <!--cell 2, upper right-->
+        <Label Content="await Task.Delay(10000)"
+               Grid.Column="1"
+               Grid.Row="0"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top"/>
         <Button 
             Grid.Column="1"
             Grid.Row="0"
-            Content="Click me, Async"
+            Content="Button2"
             Foreground="Yellow"
             Width="50"
             Height="20"
-            Click="Button_ClickedAsync"/>
+            Click="Button2_Click"/>
+        <!--cell 3, lower left-->
+        <Label Content="Synchronous method,sleep for 10s" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top"/>
+        <Button 
+            Grid.Column="1"
+            Grid.Row="0"
+            Content="Button2"
+            Foreground="Yellow"
+            Width="50"
+            Height="20"
+            Click="Button2_Click"/>
     </Grid>
 </Window>

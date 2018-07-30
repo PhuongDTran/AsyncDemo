@@ -15,16 +15,17 @@ namespace AsyncDemo
             InitializeComponent();
         }
 
-        private void Button_Clicked(Object sender, EventArgs e)
+        private void Button1_Click(Object sender, EventArgs e)
         {
             Thread.Sleep(10000);
             MessageBox.Show("hello");
         }
 
-        private async void Button_ClickedAsync( Object sender, EventArgs e)
+        private async void Button2_Clicked( Object sender, EventArgs e)
         {
             await Task.Delay(10000);
             MessageBox.Show("hello async");
         }
+
     }
 }
