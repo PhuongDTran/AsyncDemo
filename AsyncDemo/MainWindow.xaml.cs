@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace AsyncDemo
 {
@@ -15,17 +16,49 @@ namespace AsyncDemo
             InitializeComponent();
         }
 
-        private void Button1_Click(Object sender, EventArgs e)
+        private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            Thread.Sleep(10000);
-            MessageBox.Show("hello");
+            Thread.Sleep(7000);
+            ResultLabel.Content = "This is button 1";
         }
 
-        private async void Button2_Clicked( Object sender, EventArgs e)
+        private async void Button2_Click(object sender, RoutedEventArgs e)
         {
-            await Task.Delay(10000);
-            MessageBox.Show("hello async");
+            await Task.Delay(7000);
+            ResultLabel.Content = "This is button 2";
         }
 
+        private async void Button3_Click(object sender, RoutedEventArgs e)
+        {
+            //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/control-flow-in-async-programs
+            ResultLabel.Content = "about to await AccessTheWebAsync()";
+            int contentLength = await AccessTheWebAsync();
+            DoSomeWork();
+            ResultLabel.Content = "Button 3 clicked. string length:" + contentLength;
+
+        }
+
+        private async void Button4_Click(object sender, RoutedEventArgs e)
+        {
+            ResultLabel.Content = "Call AccessTheWebAsync() synchronously";
+            Task<int> getLengthTask = AccessTheWebAsync();
+            DoSomeWork();
+            int contentLength = await AccessTheWebAsync();
+            ResultLabel.Content = "Button 4 Clicked. string length:" + contentLength;
+        }
+
+        private void DoSomeWork()
+        {
+            ResultLabel.Content = "in DoSomeWork()";
+            //Thread.Sleep(5000);
+        }
+
+        private async Task<int> AccessTheWebAsync()
+        {
+            HttpClient client = new HttpClient();
+            Task<string> getStringTask = client.GetStringAsync("http://www.fakeresponse.com/api/?sleep=7");
+            string urlContents = await getStringTask;
+            return urlContents.Length;
+        }
     }
 }

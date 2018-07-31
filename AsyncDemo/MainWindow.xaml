@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AsyncDemo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="500">
-    <Grid>
+        Title="MainWindow" Height="300" Width="600">
+    <Grid Margin="0,20,0,0">
+        <Grid.Resources>
+            <SolidColorBrush x:Key="brush" Color="Black"/>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -14,9 +17,15 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <!-- cell 1, upper left -->
-        <Label Content="Synchronous method,sleep for 10s"
+        <Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,1,1" BorderBrush="{StaticResource brush}"/>
+        <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,0,1,1" BorderBrush="{StaticResource brush}"/>
+        <Border Grid.Column="1" Grid.Row="0" BorderThickness="0,1,1,1" BorderBrush="{StaticResource brush}"/>
+        <Border Grid.Column="1" Grid.Row="1" BorderThickness="0,0,1,1" BorderBrush="{StaticResource brush}"/>
+        
+        <!-- cell 1 -->
+        <Label Content="Click the button, then try to drag the window"
                Grid.Column="0"
                Grid.Row="0"
                HorizontalAlignment="Left" 
@@ -24,14 +33,15 @@
         <Button 
             Grid.Column="0"
             Grid.Row="0"
-            Content="Button1" 
+            Content="Cell1-Button" 
             Foreground="Blue" 
             BorderThickness="1" 
-            Width="70" 
+            Width="80" 
             Height="20" 
             Click="Button1_Click"/>
-        <!--cell 2, upper right-->
-        <Label Content="await Task.Delay(10000)"
+        
+        <!--cell 2-->
+        <Label Content="Click the button, then try to drag the window"
                Grid.Column="1"
                Grid.Row="0"
                HorizontalAlignment="Left" 
@@ -39,22 +49,54 @@
         <Button 
             Grid.Column="1"
             Grid.Row="0"
-            Content="Button2"
+            Content="Cell2-Button"
             Foreground="Yellow"
-            Width="50"
+            Width="80"
             Height="20"
             Click="Button2_Click"/>
+        
         <!--cell 3, lower left-->
-        <Label Content="Synchronous method,sleep for 10s" 
+        <Label Content="await AccessTheWebAsync(), then DoSomeWork()" 
+               Grid.Column="0"
+               Grid.Row="1"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top"/>
+        <Button 
+            Grid.Column="0"
+            Grid.Row="1"
+            Content="Cell3-Button"
+            Foreground="Red"
+            Width="80"
+            Height="20"
+            Click="Button3_Click"/>
+
+        <!--cell 4, lower right-->
+        <Label Content="call AccessTheWebAsync(), then DoSomeWork(), &#10;await return" 
+               Grid.Column="1"
+               Grid.Row="1"
                HorizontalAlignment="Left" 
                VerticalAlignment="Top"/>
         <Button 
             Grid.Column="1"
-            Grid.Row="0"
-            Content="Button2"
-            Foreground="Yellow"
-            Width="50"
+            Grid.Row="1"
+            Content="Cell4-Button"
+            Foreground="Green"
+            Width="80"
             Height="20"
-            Click="Button2_Click"/>
+            Click="Button4_Click"/>
+        
+        <!--bottom row-->
+        <Label Content="Text displayed when a button clicked:"
+               Grid.Column="0"
+               Grid.Row="2"
+               HorizontalAlignment="Right" 
+               VerticalAlignment="Center"/>
+        <Label Name="ResultLabel"
+               Grid.Column="1"
+               Grid.Row="2"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Center"
+               FontWeight="Bold"
+               Foreground="Blue"/>
     </Grid>
 </Window>
