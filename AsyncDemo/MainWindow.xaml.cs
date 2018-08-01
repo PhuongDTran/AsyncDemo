@@ -28,18 +28,21 @@ namespace AsyncDemo
             ResultLabel.Content = "This is button 2";
         }
 
+        /// <see cref="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/control-flow-in-async-programs"/>
         private async void Button3_Click(object sender, RoutedEventArgs e)
         {
-            //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/control-flow-in-async-programs
             ResultLabel.Content = "about to await AccessTheWebAsync()";
             int contentLength = await AccessTheWebAsync();
             DoSomeWork();
+            //give main thread a chance to redraw the window
+            await Task.Delay(1000);
             ResultLabel.Content = "Button 3 clicked. string length:" + contentLength;
 
         }
 
         private async void Button4_Click(object sender, RoutedEventArgs e)
         {
+            //ResultLabel content would not updated because main thread did not have a chance to do so
             ResultLabel.Content = "Call AccessTheWebAsync() synchronously";
             Task<int> getLengthTask = AccessTheWebAsync();
             DoSomeWork();
@@ -49,8 +52,7 @@ namespace AsyncDemo
 
         private void DoSomeWork()
         {
-            ResultLabel.Content = "in DoSomeWork()";
-            //Thread.Sleep(5000);
+            ResultLabel.Content = "inside DoSomeWork() method";
         }
 
         private async Task<int> AccessTheWebAsync()
